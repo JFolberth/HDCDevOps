@@ -51,5 +51,5 @@ stages:
                   azureSubscription: 'DEV'
                   resourceGroupName: 'rg-HDCDemo-ADOTest'
                   location: 'centralus'
-                  csmFile: 'unzip\a\Infrastructure\HDCDemoApp\HDCDemoApp\azuredeploy.json'
-                  csmParametersFile: 'unzip\a\Infrastructure\HDCDemoApp\HDCDemoApp\azuredeploy.parameters.dev.json'
+                  csmFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.json'
+                  csmParametersFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.parameters.dev.json'
