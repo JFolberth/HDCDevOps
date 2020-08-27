@@ -34,6 +34,7 @@ stages:
   jobs:
   - job: ExtractFiles
     steps:
+    - powershell: Get-ChildItem -Path $(Pipeline.Workspace) -recurse
     - task: ExtractFiles@1
       displayName: 'Extract files '
       inputs:
