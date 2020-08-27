@@ -35,6 +35,8 @@ stages:
   - deployment: "Deploy_ARM"
     displayName: "Deploy ARM"
     environment: "DEV"
+    variables:
+    - group: "HDCDemo_DEV"
     strategy:
       runOnce:
         deploy:
@@ -53,3 +55,4 @@ stages:
                   location: 'centralus'
                   csmFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.json'
                   csmParametersFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.parameters.dev.json'
+                  overrideParameters: -secretValue ${{variables.secretValue}}
