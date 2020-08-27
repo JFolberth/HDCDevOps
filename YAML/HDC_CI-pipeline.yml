@@ -6,24 +6,15 @@
 trigger:
 - none
 
+resources:
+  repositories:
+  - repository: repositoryTemplate
+    type: git
+    name: HDCDemo/YAMLTemplates
+
 pool:
   vmImage: 'ubuntu-latest'
 
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
-- stage: Build
-  jobs:
-  - job: Build 
-    steps:
-    - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
-    - task: DotNetCoreCLI@2
-      displayName: 'dotnet restore'
-      inputs:
-        command: 'restore'
-        projects: '$(Build.SourcesDirectory)/Code/HDCDemo_Code/HDCDemo**/*.csproj'
-
-    - task: DotNetCoreCLI@2
-      displayName: 'dotnet build'
-      inputs:
-        projects: '$(Build.SourcesDirectory)/Code/HDCDemo_Code/HDCDemo**/*.csproj'
-        arguments: '--configuration Release'
+- template: build_template.yml
