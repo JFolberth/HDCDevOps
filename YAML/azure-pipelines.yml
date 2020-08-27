@@ -43,7 +43,6 @@ stages:
   - deployment: "Deploy_ARM"
     displayName: "Deploy ARM"
     environment: "DEV"
-    dependsOn: "Build"
     strategy:
       runOnce:
         deploy:
