@@ -1,6 +1,4 @@
-stages:
-- stage: Build
-  jobs:
+jobs:
   - template: Jobs/build.yml@repositoryTemplate
     parameters:
       solutionPath: 'Code/HDCDemo_Code'
