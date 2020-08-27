@@ -19,4 +19,7 @@ name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd
 stages:
 - stage: Build
   jobs:
-  - template: build_template.yml
+    - template: Jobs/build.yml@repositoryTemplate
+      parameters:
+        solutionPath: 'Code/HDCDemo_Code'
+        projectName: 'HDCDemo'
