@@ -17,7 +17,8 @@ pool:
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
 - template: build_template.yml
-- template: Jobs/publish.yml@repositoryTemplate
+  jobs:
+  - template: Jobs/publish.yml@repositoryTemplate
 
 - stage: Deploy
   jobs:
