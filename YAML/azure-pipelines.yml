@@ -32,15 +32,6 @@ stages:
         targetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
 - stage: Deploy
   jobs:
-  - job: ExtractFiles
-    steps:
-    - powershell: Get-ChildItem -Path $(Pipeline.Workspace) -recurse
-    - task: ExtractFiles@1
-      displayName: 'Extract files '
-      inputs:
-            destinationFolder: '$(Pipeline.Workspace)/unzip'
-            archiveFilePatterns: '$(Pipeline.Workspace)/drop/*.zip'
-            cleanDestinationFolder: true 
   - deployment: "Deploy_ARM"
     displayName: "Deploy ARM"
     environment: "DEV"
@@ -48,6 +39,12 @@ stages:
       runOnce:
         deploy:
             steps:
+            - task: ExtractFiles@1
+              displayName: 'Extract files '
+              inputs:
+                    destinationFolder: '$(Pipeline.Workspace)/unzip'
+                    archiveFilePatterns: '$(Pipeline.Workspace)/drop/*.zip'
+                    cleanDestinationFolder: true 
             - task: AzureResourceGroupDeployment@2
               displayName: 'Resource Group Deployment'
               inputs:
