@@ -30,3 +30,25 @@ stages:
       inputs:
         artifact: drop
         targetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    - task: ExtractFiles@1
+      displayName: 'Extract files '
+      inputs:
+        destinationFolder: '$(Pipeline.Workspace)/unzip'
+        archiveFilePatterns: '$(Pipeline.Workspace)/drop/*.zip'
+        cleanDestinationFolder: true 
+  - deployment: "Deploy ARM"
+    displayName: "Deploy ARM"
+    environment: "DEV"
+    dependsOn: "Build"
+    strategy:
+      runOnce:
+        deploy:
+            steps:
+            - task: AzureResourceGroupDeployment@2
+              displayName: 'Resource Group Deployment'
+              inputs:
+                  azureSubscription: 'DEV'
+                  resourceGroupName: 'rg-HDCDemo-ADOTest'
+                  location: 'centralus'
+                  csmFile: 'unzip\a\Infrastructure\HDCDemoApp\HDCDemoApp\azuredeploy.json'
+                  csmParametersFile: 'unzip\a\Infrastructure\HDCDemoApp\HDCDemoApp\azuredeploy.parameters.dev.json'
