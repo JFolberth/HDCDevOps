@@ -15,7 +15,7 @@ stages:
   jobs:
   - job: Build 
     steps:
-    - powershell: Get-ChildItem -Path #(Build.SourceDirectory) -recurse
+    - powershell: Get-ChildItem -Path $(Build.SourceDirectory) -recurse
     - task: DotNetCoreCLI@2
       displayName: 'dotnet restore'
       inputs:
