@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "HDCDemoApp", "HDCDemoApp\HDCDemoApp.deployproj", "{BA776950-F578-4906-ABCA-96CD1ABABD0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA776950-F578-4906-ABCA-96CD1ABABD0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA776950-F578-4906-ABCA-96CD1ABABD0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA776950-F578-4906-ABCA-96CD1ABABD0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA776950-F578-4906-ABCA-96CD1ABABD0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EA0DE1C-E963-4F92-82CC-D50658F2F261}
+	EndGlobalSection
+EndGlobal

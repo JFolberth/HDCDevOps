@@ -1,0 +1,287 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "skuName": {
+      "type": "string",
+      "metadata": {
+        "description": "Which Pricing tier our App Service Plan to"
+      },
+      "defaultValue": "S1"
+    },
+    "skuCapacity": {
+      "type": "int",
+      "metadata": {
+        "description": "How many instances of our app service will be scaled out to"
+      },
+      "defaultValue": 1
+
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "environment": {
+      "type": "string",
+      "defaultValue": "dev",
+      "metadata": {
+        "description": "The environmetn we will deploy code to"
+
+      }
+    },
+    "secretValue": {
+      "type": "securestring",
+      "metadata": {
+        "desription":"Secret that will be passed from our ADO instance"}
+    }
+  },
+  "variables": {
+    "systemName": "HDCDemoApp",
+    "systemNameshort": "[substring(toLower(variables('systemName')), 0, 5)]",
+    "regionReference": {
+      "centralus": "cus",
+      "eastus": "eus",
+      "westus": "wus"
+    },
+    "appServicePlanName": "[toLower(concat('asp-', variables('systemName'),'-',variables('regionDeployment'),'-', parameters('environment')))]",
+    "regionDeployment": "[toLower(variables('regionReference')[resourceGroup().location])]",
+    "webSiteName": "[toLower(concat('wapp-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
+    "appInsightName": "[toLower(concat('appi-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
+    "logAnalyticsName": "[toLower(concat('la-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
+    "appInisghtsReference": "[concat('microsoft.insights/components/',variables('appInsightName'))]",
+    "keyVaultName": "[toLower(concat('kv-',  variables('systemNameshort'),'-', variables('regionDeployment'),'-', parameters('environment'))) ]",
+    "secretName": "secretName",
+    "roleDefinition": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/')]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2020-06-01",
+      "name": "[variables('appServicePlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[parameters('location')]",
+      "tags": {
+        "displayName": "HostingPlan",
+        "ProjectName": "[variables('systemName')]"
+      },
+      "sku": {
+        "name": "[parameters('skuName')]",
+        "capacity": "[parameters('skuCapacity')]"
+      },
+      "properties": {
+        "name": "[variables('appServicePlanName')]"
+      }
+    },
+
+    {
+      "apiVersion": "2020-06-01",
+      "name": "[variables('webSiteName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[parameters('location')]",
+      "tags": {
+        "displayName": "Website",
+        "ProjectName": "[variables('systemName')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms/', variables('appServicePlanName'))]",
+        "[resourceId('Microsoft.OperationalInsights/workspaces',variables('logAnalyticsName'))]"
+      ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "httpsOnly": true,
+        "siteConfig": {
+          "minTlsVersion": "1.2"
+        }
+      },
+      "resources": [
+        {
+          "apiVersion": "2020-06-01",
+          "name": "appsettings",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('WebsiteName'))]",
+            "Microsoft.ApplicationInsights.AzureWebSites",
+            "[resourceId('microsoft.insights/components/', variables('appInsightName'))]"
+
+          ],
+          "properties": {
+            "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(variables('appInisghtsReference')).InstrumentationKey]"
+          }
+        },
+        {
+          "apiVersion": "2020-06-01",
+          "name": "Microsoft.ApplicationInsights.AzureWebSites",
+          "type": "siteextensions",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('WebsiteName'))]",
+            "[resourceId('microsoft.insights/components/', variables('appInsightName'))]"
+          ]
+        },
+
+        {
+          "apiVersion": "2020-06-01",
+          "name": "logs",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('WebsiteName'))]"
+          ],
+          "properties": {
+            "applicationLogs": {
+              "fileSystem": {
+                "level": "Warning"
+              }
+            },
+            "httpLogs": {
+              "fileSystem": {
+                "retentionInMb": 40,
+                "enabled": true
+              }
+            },
+            "failedRequestsTracing": {
+              "enabled": true
+            },
+            "detailedErrorMessages": {
+              "enabled": true
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "[variables('appInsightName')]",
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "location": "[parameters('location')]",
+      "tags": {
+        "displayName": "AppInsight",
+        "ProjectName": "[variables('systemName')]"
+      },
+      "kind": "string",
+      "properties": {
+        "Application_Type": "web",
+        "applicationId": "[variables('appInsightName')]",
+        "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/Sites', variables('WebsiteName'))]",
+        "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "name": "[variables('logAnalyticsName')]",
+      "tags": {
+        "displayName": "Log Analytics",
+        "ProjectName": "[variables('systemName')]"
+      },
+      "apiVersion": "2020-03-01-preview",
+      "location": "[parameters('location')]",
+      "properties": {
+        "sku": {
+          "name": "CapacityReservation",
+          "capacityReservationLevel": 100
+        },
+        "retentionInDays": 120,
+        "features": {
+          "searchVersion": 1,
+          "legacy": 0,
+          "enableLogAccessUsingOnlyResourcePermissions": true
+        }
+      }
+    },
+    {
+      "comments": "Key Vault Configuration, see Read Me File on how to setup conditional Access to DEV for development teams",
+      "type": "Microsoft.KeyVault/vaults",
+      "name": "[variables('keyVaultName')]",
+      "apiVersion": "2019-09-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "KeyVault",
+        "ProjectName": "[variables('systemName')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.OperationalInsights/workspaces',variables('logAnalyticsName'))]"
+      ],
+      "properties": {
+        "enabledForTemplateDeployment": true,
+        "enabledForDiskEncryption": false,
+        "enableForDeployment": false,
+        "sku": {
+          "name": "Standard",
+          "family": "A"
+        },
+        "tenantId": "[subscription().tenantId]",
+        "accessPolicies": [
+          {
+            "tenantID": "[subscription().tenantId]",
+            "objectId": "[reference(resourceId('Microsoft.Web/sites', variables('webSiteName')), '2020-06-01', 'Full').identity.principalId]",
+            "permissions": {
+              "secrets": [
+                "get"
+              ],
+              "keys": [
+                "get"
+              ],
+              "certificates": [
+                "import"
+              ]
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Web/Sites', variables('WebsiteName'))]"
+            ]
+          }
+        ],
+        "networkAcls": {
+          "defaultAction": "Allow"
+        }
+      },
+      "resources": [
+        {
+          "type": "secrets",
+          "name": "[variables('secretName')]",
+          "apiVersion": "2019-09-01",
+          "properties": {
+            "contentType": "text/plain",
+            // Cannot use PrimaryConnectionString as it adds EntityPath and there is an open issue for this with Azure Functions
+            "value": "[parameters('secretValue')]"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.KeyVault/vaults',  variables('keyVaultName'))]"
+          ],
+          "tags": {
+            "displayName": "KeyVault Secret"
+          }
+        },
+        {
+          "name": "[concat(variables('keyVaultName'), '/Microsoft.Insights/Logging')]",
+          "type": "Microsoft.KeyVault/vaults/providers/diagnosticsettings",
+          "apiVersion": "2017-05-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.KeyVault/vaults',  variables('keyVaultName'))]"
+          ],
+          "properties": {
+
+            "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))]",
+            "logs": [
+              {
+                "category": "AuditEvent",
+                "enabled": true,
+                "retentionPolicy": {
+                  "enabled": true,
+                  "days": 100
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+
+  ]
+}
