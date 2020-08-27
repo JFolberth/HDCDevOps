@@ -25,4 +25,4 @@ stages:
       displayName: 'dotnet build'
       inputs:
         projects: '$(Build.SourcesDirectory)/HDCDemo_Code/HDCDemo**/*.csproj'
-        arguments: '--configuration ${{ parameters.BuildConfiguration }}'
+        arguments: '--configuration Release'
