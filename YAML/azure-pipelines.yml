@@ -16,12 +16,13 @@ pool:
 
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
-jobs:
-  - template: Jobs/build.yml@repositoryTemplate
-    parameters:
-      solutionPath: 'Code/HDCDemo_Code'
-      projectName: 'HDCDemo'
-  - template: Jobs/publish.yml@repositoryTemplate
+- stage: Build_Publish
+  jobs:
+    - template: Jobs/build.yml@repositoryTemplate
+      parameters:
+        solutionPath: 'Code/HDCDemo_Code'
+        projectName: 'HDCDemo'
+    - template: Jobs/publish.yml@repositoryTemplate
 
 - stage: Deploy
   jobs:
