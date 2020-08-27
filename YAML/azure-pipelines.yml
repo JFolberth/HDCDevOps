@@ -30,12 +30,16 @@ stages:
       inputs:
         artifact: drop
         targetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+- stage: Deploy
+  jobs:
+  - job: ExtractFiles
+    steps:
     - task: ExtractFiles@1
-      displayName: 'Extract files '
-      inputs:
-        destinationFolder: '$(Pipeline.Workspace)/unzip'
-        archiveFilePatterns: '$(Pipeline.Workspace)/drop/*.zip'
-        cleanDestinationFolder: true 
+          displayName: 'Extract files '
+          inputs:
+            destinationFolder: '$(Pipeline.Workspace)/unzip'
+            archiveFilePatterns: '$(Pipeline.Workspace)/drop/*.zip'
+            cleanDestinationFolder: true 
   - deployment: "Deploy_ARM"
     displayName: "Deploy ARM"
     environment: "DEV"
