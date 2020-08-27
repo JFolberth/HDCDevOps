@@ -1,0 +1,6 @@
+- stage: Build
+  jobs:
+  - template: build.yml@repositoryTemplate
+    parameters:
+      solutionPath: 'Code/HDCDemo_Code'
+      projectName: 'HDCDemo'
