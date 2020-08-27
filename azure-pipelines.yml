@@ -20,10 +20,10 @@ stages:
       displayName: 'dotnet restore'
       inputs:
         command: 'restore'
-        projects: '$(Build.SourcesDirectory)/HDCDemo_Code/HDCDemo**/*.csproj'
+        projects: '$(Build.SourcesDirectory)/Code/HDCDemo_Code/HDCDemo**/*.csproj'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build'
       inputs:
-        projects: '$(Build.SourcesDirectory)/HDCDemo_Code/HDCDemo**/*.csproj'
+        projects: '$(Build.SourcesDirectory)/Code/HDCDemo_Code/HDCDemo**/*.csproj'
         arguments: '--configuration Release'
