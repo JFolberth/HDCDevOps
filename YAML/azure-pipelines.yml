@@ -25,6 +25,7 @@ stages:
         solutionPath: ${{ variables.solutionPath}}
         projectName: ${{ variables.HDCDemoCodeProjectName }}
     - template: Jobs/publish.yml@repositoryTemplate
+      parameters:
         applicationName: ${{ variables.applicationName}}
 
 - stage: Deploy
