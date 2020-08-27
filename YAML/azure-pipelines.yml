@@ -35,8 +35,8 @@ stages:
   - job: ExtractFiles
     steps:
     - task: ExtractFiles@1
-          displayName: 'Extract files '
-          inputs:
+      displayName: 'Extract files '
+      inputs:
             destinationFolder: '$(Pipeline.Workspace)/unzip'
             archiveFilePatterns: '$(Pipeline.Workspace)/drop/*.zip'
             cleanDestinationFolder: true 
