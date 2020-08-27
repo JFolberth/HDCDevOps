@@ -36,7 +36,7 @@ stages:
         destinationFolder: '$(Pipeline.Workspace)/unzip'
         archiveFilePatterns: '$(Pipeline.Workspace)/drop/*.zip'
         cleanDestinationFolder: true 
-  - deployment: "Deploy ARM"
+  - deployment: "Deploy_ARM"
     displayName: "Deploy ARM"
     environment: "DEV"
     dependsOn: "Build"
