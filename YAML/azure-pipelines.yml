@@ -51,7 +51,7 @@ stages:
               displayName: 'Resource Group Deployment'
               inputs:
                   azureSubscription: 'DEV'
-                  resourceGroupName: 'rg-HDCDemo-ADOTest'
+                  resourceGroupName: 'rg-HDCDemo-dev-cus'
                   location: 'centralus'
                   csmFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.json'
                   csmParametersFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.parameters.dev.json'
