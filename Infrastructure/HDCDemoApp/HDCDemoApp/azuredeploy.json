@@ -40,7 +40,7 @@
   },
   "variables": {
     "systemName": "HDCDemoApp",
-    "systemNameshort": "[substring(toLower(variables('systemName')), 0, 5)]",
+    "systemNameshort": "[substring(toLower(variables('systemName')), 0, 6)]",
     "regionReference": {
       "centralus": "cus",
       "eastus": "eus",
