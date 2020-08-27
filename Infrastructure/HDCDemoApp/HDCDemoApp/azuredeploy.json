@@ -50,7 +50,7 @@
     "regionDeployment": "[toLower(variables('regionReference')[resourceGroup().location])]",
     "webSiteName": "[toLower(concat('wapp-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
     "appInsightName": "[toLower(concat('appi-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
-    "logAnalyticsName": "[toLower(concat('la-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
+    "logAnalyticsName": "[toLower(concat('law-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
     "appInisghtsReference": "[concat('microsoft.insights/components/',variables('appInsightName'))]",
     "keyVaultName": "[toLower(concat('kv-',  variables('systemNameshort'),'-', variables('regionDeployment'),'-', parameters('environment'))) ]",
     "secretName": "secretName",
