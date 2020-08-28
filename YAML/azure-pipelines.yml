@@ -30,6 +30,6 @@ stages:
 
 - stage: Deploy
   jobs:
-  - template: Jobs/deploy_arm.yml
+  - template: Jobs/deploy_arm.yml@repositoryTemplate
     parameters:
       environment: 'DEV'
