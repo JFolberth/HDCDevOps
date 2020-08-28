@@ -25,6 +25,5 @@ stages:
         projectName: 'HDCDemo'
     - template: Tasks/ttk.yml@repositoryTemplate
       parameters:
-        armTemplateLocation: 
         solutionPath: 'Infrastructure/HDCDemoApp'
         projectName: 'HDCDemoApp'
