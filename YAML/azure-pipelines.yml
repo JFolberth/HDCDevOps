@@ -30,6 +30,11 @@ stages:
 
 - stage: Deploy
   jobs:
+  - job: Extract_Files
+   steps:             
+    - template: Tasks/extract.yml@repositoryTemplate
   - template: Jobs/deploy_arm.yml@repositoryTemplate
     parameters:
       environment: 'DEV'
+      dependsOn: Extract_Files
+      
