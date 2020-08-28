@@ -30,22 +30,6 @@ stages:
 
 - stage: Deploy
   jobs:
-  - deployment: "Deploy_ARM"
-    displayName: "Deploy ARM"
-    environment: "DEV"
-    variables:
-    - group: "HDCDemo_DEV"
-    strategy:
-      runOnce:
-        deploy:
-            steps:
-            - template: Tasks/extract.yml@repositoryTemplate
-            - task: AzureResourceGroupDeployment@2
-              displayName: 'Resource Group Deployment'
-              inputs:
-                  azureSubscription: 'DEV'
-                  resourceGroupName: 'rg-HDCDemo-dev-cus'
-                  location: 'centralus'
-                  csmFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.json'
-                  csmParametersFile: '/home/vsts/work/1/unzip/a/Infrastructure/HDCDemoApp/HDCDemoApp/azuredeploy.parameters.dev.json'
-                  overrideParameters: -secretValue ${{variables.secretValue}}
+  - template: Jobs/deploy_arm.yml
+    parameters:
+      environment: 'DEV'
