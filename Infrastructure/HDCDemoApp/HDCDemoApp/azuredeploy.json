@@ -53,8 +53,7 @@
     "logAnalyticsName": "[toLower(concat('law-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
     "appInisghtsReference": "[concat('microsoft.insights/components/',variables('appInsightName'))]",
     "keyVaultName": "[toLower(concat('kv-',  variables('systemNameshort'),'-', variables('regionDeployment'),'-', parameters('environment'))) ]",
-    "secretName": "secretName",
-    "roleDefinition": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/')]"
+    "secretName": "secretName"
   },
   "resources": [
     {
@@ -200,7 +199,7 @@
       "type": "Microsoft.KeyVault/vaults",
       "name": "[variables('keyVaultName')]",
       "apiVersion": "2019-09-01",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "tags": {
         "displayName": "KeyVault",
         "ProjectName": "[variables('systemName')]"
