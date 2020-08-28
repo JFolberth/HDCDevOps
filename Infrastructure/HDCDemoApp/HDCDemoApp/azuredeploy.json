@@ -47,7 +47,7 @@
       "westus": "wus"
     },
     "appServicePlanName": "[toLower(concat('asp-', variables('systemName'),'-',variables('regionDeployment'),'-', parameters('environment')))]",
-    "regionDeployment": "[toLower(variables('regionReference')[resourceGroup().location])]",
+    "regionDeployment": "[toLower(variables('regionReference')[parameters('location')]")]",
     "webSiteName": "[toLower(concat('wapp-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
     "appInsightName": "[toLower(concat('appi-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
     "logAnalyticsName": "[toLower(concat('law-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
