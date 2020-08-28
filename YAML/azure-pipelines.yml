@@ -31,7 +31,7 @@ stages:
 - stage: Deploy
   jobs:
   - job: Extract_Files
-   steps:             
+    steps:             
     - template: Tasks/extract.yml@repositoryTemplate
   - template: Jobs/deploy_arm.yml@repositoryTemplate
     parameters:
