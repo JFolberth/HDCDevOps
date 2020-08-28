@@ -12,7 +12,7 @@ resources:
     type: git
     name: HDCDemo/YAMLTemplates
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 variables:
   template: HDCDevops.variables.yml
 
