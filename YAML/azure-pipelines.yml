@@ -33,4 +33,3 @@ stages:
   - template: Jobs/deploy_arm.yml@repositoryTemplate
     parameters:
       environment: 'DEV'
-      dependsOn: Extract_Files
