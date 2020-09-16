@@ -39,20 +39,20 @@
     }
   },
   "variables": {
-    "systemName": "HDCDemoApp",
+    "systemName": "HDCDemoApp2",
     "systemNameshort": "[substring(toLower(variables('systemName')), 0, 6)]",
     "regionReference": {
       "centralus": "cus",
       "eastus": "eus",
       "westus": "wus"
     },
-    "appServicePlanName": "[toLower(concat('asp-', variables('systemName'),'-',variables('regionDeployment'),'-', parameters('environment')))]",
+    "appServicePlanName": "[toLower(concat('asp-', variables('systemName'),'-', parameters('environment'),'-',variables('regionDeployment')))]",
     "regionDeployment": "[toLower(variables('regionReference')[parameters('location')])]",
-    "webSiteName": "[toLower(concat('wapp-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
-    "appInsightName": "[toLower(concat('appi-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
-    "logAnalyticsName": "[toLower(concat('law-',variables('systemName'),'-',variables('regionDeployment'),'-',parameters('environment')))]",
+    "webSiteName": "[toLower(concat('wapp-',variables('systemName'),'-',parameters('environment'),'-',variables('regionDeployment')))]",
+    "appInsightName": "[toLower(concat('appi-',variables('systemName'),'-',parameters('environment'),'-',variables('regionDeployment')))]",
+    "logAnalyticsName": "[toLower(concat('law-',variables('systemName'),'-',parameters('environment'),'-',variables('regionDeployment')))]",
     "appInisghtsReference": "[concat('microsoft.insights/components/',variables('appInsightName'))]",
-    "keyVaultName": "[toLower(concat('kv-',  variables('systemNameshort'),'-', variables('regionDeployment'),'-', parameters('environment'))) ]",
+    "keyVaultName": "[toLower(concat('kv-',  variables('systemNameshort'),'-', parameters('environment'),'-',variables('regionDeployment'))) ]",
     "secretName": "secretName"
   },
   "resources": [
@@ -183,8 +183,7 @@
       "location": "[parameters('location')]",
       "properties": {
         "sku": {
-          "name": "CapacityReservation",
-          "capacityReservationLevel": 100
+          "name": "pergb2018"
         },
         "retentionInDays": 120,
         "features": {

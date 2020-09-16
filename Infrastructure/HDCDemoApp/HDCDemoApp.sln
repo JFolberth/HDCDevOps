@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "HDCDemoApp", "HDCDemoApp\HDCDemoApp.deployproj", "{BA776950-F578-4906-ABCA-96CD1ABABD0B}"
 EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "HDCDemoApp_FD", "HDCDemoApp_FD\HDCDemoApp_FD.deployproj", "{B7DE2C34-C42C-4AAA-A7FA-EE2D47A9B44D}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "FrontDoor_Policies", "FrontDoor_Policies\FrontDoor_Policies.deployproj", "{817C40BF-41F4-4BF9-8CCF-37FA028F355E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{BA776950-F578-4906-ABCA-96CD1ABABD0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA776950-F578-4906-ABCA-96CD1ABABD0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA776950-F578-4906-ABCA-96CD1ABABD0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7DE2C34-C42C-4AAA-A7FA-EE2D47A9B44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7DE2C34-C42C-4AAA-A7FA-EE2D47A9B44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7DE2C34-C42C-4AAA-A7FA-EE2D47A9B44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7DE2C34-C42C-4AAA-A7FA-EE2D47A9B44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{817C40BF-41F4-4BF9-8CCF-37FA028F355E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817C40BF-41F4-4BF9-8CCF-37FA028F355E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817C40BF-41F4-4BF9-8CCF-37FA028F355E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817C40BF-41F4-4BF9-8CCF-37FA028F355E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
