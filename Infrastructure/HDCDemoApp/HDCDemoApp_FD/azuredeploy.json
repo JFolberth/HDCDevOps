@@ -22,7 +22,7 @@
   },
   "variables": {
     "frontdoorLocation": "global",
-    "systemName": "HDCDemoApp2",
+    "systemName": "HDCDemoApp",
     "systemNameshort": "[substring(toLower(variables('systemName')), 0, 6)]",
     "regionReference": {
       "centralus": "cus",
