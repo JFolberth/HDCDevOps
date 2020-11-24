@@ -22,7 +22,7 @@ stages:
   jobs:
     - template: Jobs/build.yml@repositoryTemplate
       parameters:
-        projectPath: '$(Build.SourcesDirectory)/Code/HDCDemo_Code/HDCDemo**/*.csproj'
+        projectPath: '$(Build.SourcesDirectory)\Code\HDCDemo_Code\HDCDemo**\*.csproj'
     - template: Jobs/dotnetTestCases.yml@repositoryTemplate
       parameters:
         projectPath: '$(Build.SourcesDirectory)/$(solutionPath)/$(HDCDemoCodeProjectName)**/*.csproj'
