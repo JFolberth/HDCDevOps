@@ -25,7 +25,7 @@ stages:
         projectPath: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/${{ variables.HDCDemoCodeProjectName }}**/*.csproj'
     - template: Jobs/dotnetTestCases.yml@repositoryTemplate
       parameters:
-        projectPath: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/${{ variables.HDCDemoCodeProjectName }}**/*.csproj'
+        projectPath: '$(Build.SourcesDirectory)/$(solutionPath)/$(HDCDemoCodeProjectName)**/*.csproj'
         runTestCases: true
     - template: Jobs/publish.yml@repositoryTemplate
       parameters:
