@@ -22,8 +22,7 @@ stages:
   jobs:
     - template: Jobs/build.yml@repositoryTemplate
       parameters:
-        solutionPath: ${{ variables.solutionPath}}
-        projectName: ${{ variables.HDCDemoCodeProjectName }}
+        projectName: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/${{ variables.HDCDemoCodeProjectName }}**/*.csproj'
     - template: Jobs/publish.yml@repositoryTemplate
       parameters:
         applicationName: ${{ variables.applicationName}}
