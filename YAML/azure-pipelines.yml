@@ -20,10 +20,11 @@ name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd
 stages:
 - stage: Build_Publish
   jobs:
+    - powershell: echo '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/${{ variables.HDCDemoCodeProjectName }}**/*.csproj'
     - template: Jobs/build.yml@repositoryTemplate
       parameters:
         projectName: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/${{ variables.HDCDemoCodeProjectName }}**/*.csproj'
-    - template: Jobs/dotnetTestCases.yml@repositoryTemplate
+    - template: Jobs/dotnetTestCases.yml
       parameters:
         projectName: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/${{ variables.HDCDemoCodeProjectName }}**/*.csproj'
         runTestCases: true
