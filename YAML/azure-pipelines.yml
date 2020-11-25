@@ -22,10 +22,10 @@ stages:
   jobs:
     - template: Jobs/build.yml@repositoryTemplate
       parameters:
-        projectPath: '$(Build.SourcesDirectory)\Code\HDCDemo_Code\HDCDemo**\*.csproj'
+        projectPath: '$(Build.SourcesDirectory)\Code\HDCDemo_Code\TestApp\TestApp.csproj'
     - template: Jobs/dotnetTestCases.yml@repositoryTemplate
       parameters:
-        projectPath: '$(Build.SourcesDirectory)/$(solutionPath)/$(HDCDemoCodeProjectName)**/*.csproj'
+        projectPath: '$(Build.SourcesDirectory)\Code\HDCDemo_Code\TestApp.Tests\TestApp.Tests.csproj'
         runTestCases: true
     - template: Jobs/publish.yml@repositoryTemplate
       parameters:
