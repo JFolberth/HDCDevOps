@@ -14,7 +14,8 @@ resources:
 pool:
   vmImage: 'windows-latest'
 variables:
-  template: HDCDevops.variables.yml
+  solutionPath: 'Code/HDCDemo_Code'
+  applicationName: 'TestApp'
 
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
