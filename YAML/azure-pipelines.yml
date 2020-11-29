@@ -15,12 +15,13 @@ pool:
   vmImage: 'windows-latest'
 variables:
   template: HDCDevops.variables.yml
+  projectPath: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/ ${{ variables.projectName }}'
 
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
 - template: Stages/build_publish_test_dotnetcore.yml@repositoryTemplate
   parameters:
-    projectPath: ''
+    projectPath: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/ ${{ variables.projectName }}'
     applicationName: ${{ variables.applicationName }}
 
 - template: Stages/deploy_arm_dotnetcore.yml@repositoryTemplate
