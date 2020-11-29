@@ -21,7 +21,7 @@ name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd
 stages:
 - template: Stages/build_publish_test_dotnetcore.yml@repositoryTemplate
   parameters:
-    projectPath: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/ ${{ variables.applicationName }}'
+    projectPath: '${{ variables.solutionPath }}\${{ variables.applicationName }}'
     applicationName: ${{ variables.applicationName }}
 
 - template: Stages/deploy_arm_dotnetcore.yml@repositoryTemplate
