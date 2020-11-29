@@ -15,7 +15,6 @@ pool:
   vmImage: 'windows-latest'
 variables:
   template: HDCDevops.variables.yml
-  projectPath: '$(Build.SourcesDirectory)/${{ variables.solutionPath }}/ ${{ variables.applicationName }}'
 
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
