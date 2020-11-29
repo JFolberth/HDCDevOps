@@ -26,5 +26,5 @@ stages:
 - template: Stages/deploy_arm_dotnetcore.yml@repositoryTemplate
   parameters:
    environmentName: 'DEV'
-   applciationName: ${{ variables.applicationName }}
+   applicationName: ${{ variables.applicationName }}
    regionAbrv: 'eus'
