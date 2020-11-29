@@ -23,7 +23,7 @@ stages:
     projectPath: ''
     applicationName: ${{ variables.applicationName }}
 
-- template: Stages/deploy_arm_dotnetcore.yml
+- template: Stages/deploy_arm_dotnetcore.yml@repositoryTemplate
   parameters:
    environmentName: 'DEV'
    applciationName: ${{ variables.applicationName }}
