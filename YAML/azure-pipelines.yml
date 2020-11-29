@@ -18,18 +18,10 @@ variables:
 
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
-- stage: Build_Publish
-  jobs:
-    - template: Jobs/build.yml@repositoryTemplate
-      parameters:
-        projectPath: '$(Build.SourcesDirectory)\Code\HDCDemo_Code\TestApp\TestApp.csproj'
-    - template: Jobs/dotnetTestCases.yml@repositoryTemplate
-      parameters:
-        projectPath: '$(Build.SourcesDirectory)\Code\HDCDemo_Code\TestApp.Tests\TestApp.Tests.csproj'
-        runTestCases: true
-    - template: Jobs/publish.yml@repositoryTemplate
-      parameters:
-        applicationName: ${{ variables.applicationName}}
+- template: Stages/build_publish_test_dotnetcore.yml@repositoryTemplate
+  parameters:
+    projectPath: ''
+    applicationName: ${{ variables.applicationName }}
 
 - stage: Deploy
   jobs:
