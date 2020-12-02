@@ -14,22 +14,18 @@ resources:
 pool:
   vmImage: 'windows-latest'
 variables:
-  template: HDCDevops.variables.yml
+  solutionPath: 'Code/HDCDemo_Code'
+  applicationName: 'TestApp'
 
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 stages:
-- stage: Build_Publish
-  jobs:
-    - template: Jobs/build.yml@repositoryTemplate
-      parameters:
-        solutionPath: ${{ variables.solutionPath}}
-        projectName: ${{ variables.HDCDemoCodeProjectName }}
-    - template: Jobs/publish.yml@repositoryTemplate
-      parameters:
-        applicationName: ${{ variables.applicationName}}
-
-- template: Stages/deploy_arm_dotnetcore.yml@repoistoryTemplate
+- template: Stages/build_publish_test_dotnetcore.yml@repositoryTemplate
   parameters:
-    environmentName: 'DEV'
-    applicationName: ${{ variables.applicationName}}
-    regionAbrv: 'eus'
+    projectPath: '${{ variables.solutionPath }}\${{ variables.applicationName }}'
+    applicationName: ${{ variables.applicationName }}
+
+- template: Stages/deploy_arm_dotnetcore.yml@repositoryTemplate
+  parameters:
+   environmentName: 'DEV'
+   applicationName: ${{ variables.applicationName }}
+   regionAbrv: 'eus'
